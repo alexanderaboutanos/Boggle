@@ -10,4 +10,12 @@ $("#submitGuessButton").on("click", function (evt) {
 async function handleGuess(guess) {
   response = await axios.post("/check-guess", { guess: guess });
   alert(response.data);
+  if (response.data === "ok") {
+    score += guess.length;
+    $("#score").html(score);
+  }
 }
+
+// set html score to 0 at start of game
+score = 0;
+$("#score").html(score);
