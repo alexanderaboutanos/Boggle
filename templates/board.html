@@ -1,7 +1,7 @@
 <!-- @format -->
 
-{% extends "base.html" %} {% block title %} Boggle Board! {% endblock %} {%
-block content %}
+{% extends "base.html" %} {% block title %} Boggle Board! {% endblock %} {%block
+content %}
 
 <h1>Let's Play Boggle!</h1>
 
@@ -16,8 +16,8 @@ block content %}
 
 <form>
   <label for="guess">Take a guess!</label>
-  <input name="guess" type="text" placeholder="type here..." />
-  <button type="submit">Submit</button>
+  <input name="guess" id="guessInput" type="text" placeholder="type here..." />
+  <button type="submit" id="submitGuessButton">Submit</button>
 </form>
 
 {% endblock %}
