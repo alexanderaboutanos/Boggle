@@ -8,7 +8,10 @@ $("#submitGuessButton").on("click", function (evt) {
 });
 
 async function handleGuess(guess) {
-  response = await axios.post("/check-guess", { guess: guess });
+  if ($("#timer").html() === "0") {
+    alert("Times up fool");
+    return;
+  } else response = await axios.post("/check-guess", { guess: guess });
   alert(response.data);
   if (response.data === "ok") {
     score += guess.length;
@@ -19,3 +22,16 @@ async function handleGuess(guess) {
 // set html score to 0 at start of game
 score = 0;
 $("#score").html(score);
+
+function timer() {
+  let seconds = 60;
+  $("#timer").html(seconds);
+  let timer = setInterval(function () {
+    if (seconds === 0) {
+      clearInterval(timer);
+    } else seconds = seconds - 1;
+    $("#timer").html(seconds);
+  }, 1000);
+}
+
+window.onload = timer();
