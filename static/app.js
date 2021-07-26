@@ -29,9 +29,15 @@ function timer() {
   let timer = setInterval(function () {
     if (seconds === 0) {
       clearInterval(timer);
+      endGame();
     } else seconds = seconds - 1;
     $("#timer").html(seconds);
   }, 1000);
+}
+
+async function endGame() {
+  let score = $("#score").html();
+  res = await axios.post("/record-score", { score: score });
 }
 
 window.onload = timer();

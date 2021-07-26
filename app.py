@@ -28,3 +28,22 @@ def check_word():
 
     # respond to AJAX using a jsonified element
     return jsonify(json_response)
+
+
+@app.route('/record-score', methods=['POST'])
+def record_score():
+
+    # check if this is the first time playing game
+    if session.get('num_of_plays') is None:
+        session['num_of_plays'] = 0
+        session['highest_score'] = 0
+
+    # add 1 to num of plays
+    session['num_of_plays'] += 1
+
+    # update highest score if it has changed
+    new_score = int(request.json['score'])
+    if new_score > session['highest_score']:
+        session['highest_score'] = new_score
+
+    return jsonify(new_score)
