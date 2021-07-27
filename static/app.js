@@ -8,14 +8,27 @@ $("#submitGuessButton").on("click", function (evt) {
 });
 
 async function handleGuess(guess) {
+  //check to make sure the time isn't up!
   if ($("#timer").html() === "0") {
     alert("Times up fool");
     return;
-  } else response = await axios.post("/check-guess", { guess: guess });
+  }
+
+  // check to make sure the guess hasn't already happened!
+  else if (guessedWords.includes(guess)) {
+    alert("You already guessed that!");
+    return;
+  }
+
+  // check if the guess is valid using the backend
+  else response = await axios.post("/check-guess", { guess: guess });
   alert(response.data);
+
+  // if the guess was valid, add it to the score and list of guessed words!
   if (response.data === "ok") {
     score += guess.length;
     $("#score").html(score);
+    guessedWords.push(guess);
   }
 }
 
@@ -41,3 +54,4 @@ async function endGame() {
 }
 
 window.onload = timer();
+guessedWords = [];
